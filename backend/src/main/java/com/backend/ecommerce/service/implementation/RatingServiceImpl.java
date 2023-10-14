@@ -1,4 +1,4 @@
-package com.backend.ecommerce.service;
+package com.backend.ecommerce.service.implementation;
 
 import com.backend.ecommerce.entity.Product;
 import com.backend.ecommerce.entity.Rating;
@@ -6,6 +6,8 @@ import com.backend.ecommerce.entity.User;
 import com.backend.ecommerce.exception.ProductException;
 import com.backend.ecommerce.repository.RatingRepository;
 import com.backend.ecommerce.request.RatingRequest;
+import com.backend.ecommerce.service.ProductService;
+import com.backend.ecommerce.service.RatingService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.backend.ecommerce.service;
+package com.backend.ecommerce.service.implementation;
 
 import com.backend.ecommerce.entity.Category;
 import com.backend.ecommerce.entity.Product;
@@ -6,6 +6,7 @@ import com.backend.ecommerce.exception.ProductException;
 import com.backend.ecommerce.repository.CategoryRepository;
 import com.backend.ecommerce.repository.ProductRepository;
 import com.backend.ecommerce.request.ProductRequest;
+import com.backend.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,7 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
@@ -45,12 +46,6 @@ public class ProductServiceImpl implements ProductService{
 
         Category topLevel = categoryRepository.findByName(productRequest.getTopLevelCategory());
 
-        Category secondLevel = categoryRepository.
-                findByNameAndParent(productRequest.getSecondLevelCategory(), topLevel.getName());
-
-        Category thirdLevel = categoryRepository.
-                findByNameAndParent(productRequest.getThirdLevelCategory(), secondLevel.getName());
-
         if (topLevel == null) {
             Category topLevelCategory = new Category();
 
@@ -59,6 +54,9 @@ public class ProductServiceImpl implements ProductService{
 
             topLevel = categoryRepository.save(topLevelCategory);
         }
+
+        Category secondLevel = categoryRepository.
+                findByNameAndParent(productRequest.getSecondLevelCategory(), topLevel.getName());
 
         if (secondLevel == null) {
             Category secondLevelCategory = new Category();
@@ -70,10 +68,13 @@ public class ProductServiceImpl implements ProductService{
             secondLevel = categoryRepository.save(secondLevelCategory);
         }
 
+        Category thirdLevel = categoryRepository.
+                findByNameAndParent(productRequest.getThirdLevelCategory(), secondLevel.getName());
+
         if (thirdLevel == null) {
             Category thirdLevelCategory = new Category();
 
-            thirdLevelCategory.setName(productRequest.getSecondLevelCategory());
+            thirdLevelCategory.setName(productRequest.getThirdLevelCategory());
             thirdLevelCategory.setLevel(3);
             thirdLevelCategory.setParentCategory(secondLevel);
 
@@ -107,7 +108,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    // Chi cho thay doi so luong, khong thay doi properties khac tranh viec thay doi cau truc database
+    // Chi cho thay doi so luong, title, description, price
+    // khong thay doi properties khac tranh viec thay doi cau truc database
     public Product updateProduct(Long productId, Product product) throws ProductException {
 
         Product tmpProduct = findProductById(productId);
@@ -116,6 +118,9 @@ public class ProductServiceImpl implements ProductService{
         if (product.getQuantity() != 0) {
             tmpProduct.setQuantity(product.getQuantity());
         }
+        tmpProduct.setPrice(product.getPrice());
+        tmpProduct.setDescription(product.getDescription());
+        tmpProduct.setTitle(product.getTitle());
         return productRepository.save(tmpProduct);
     }
 

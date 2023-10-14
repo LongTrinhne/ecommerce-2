@@ -1,4 +1,4 @@
-package com.backend.ecommerce.service;
+package com.backend.ecommerce.security;
 
 import com.backend.ecommerce.entity.User;
 import io.jsonwebtoken.Claims;
@@ -19,7 +19,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     public static final String
-            SECRET_KEY = "GWk0pPwX4As81LCqjfdN8vMAWeL88W3WXiW78IAE5UBS1NOlVbju2kZq2aKzvNSOBhLKayjz3/PliqKsMxvaLf2U1PXoE2UPFqsrUqAu+nLA87rmod9/+j45CIxA48aKOe6/Pt70iq7H31EvdxYLPwiLfsf+qihVwt6KVYCHSOBb42rGxn5uWoFXz9Y/dJq5yEZZ9rURJJI+cF67Sp4+2nRKpvrPeUdQl+QZ48cYs1hlmPm63tQBLXh8tP+1wGPQUsSwj8mI/lDCP/WtIDNANHsjLyMDjE8fzPK+gYmScgdwEt5SJzOdxt+OabKUBwvtU5t952mcPMrKV200n6MLdHue9+u1jWtgnd0S3q1fSWE=";
+            SECRET_KEY = "89a74eecd80b96757fecc95d7b689157600366d5c114fb8794ae07ea2f7c7fd2";
     private Key getSignInKey() {
         byte[] key = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(key);

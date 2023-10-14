@@ -1,4 +1,4 @@
-package com.backend.ecommerce.service;
+package com.backend.ecommerce.service.implementation;
 
 import com.backend.ecommerce.entity.Cart;
 import com.backend.ecommerce.entity.CartItem;
@@ -8,12 +8,14 @@ import com.backend.ecommerce.exception.CartItemException;
 import com.backend.ecommerce.exception.UserNotFoundException;
 import com.backend.ecommerce.repository.CartItemRepository;
 import com.backend.ecommerce.repository.CartRepository;
+import com.backend.ecommerce.service.CartItemService;
+import com.backend.ecommerce.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class CartItemServiceImpl implements CartItemService{
+public class CartItemServiceImpl implements CartItemService {
 
     private final CartItemRepository cartItemRepository;
     private final UserService userService;

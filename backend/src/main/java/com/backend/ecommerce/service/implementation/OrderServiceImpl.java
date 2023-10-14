@@ -1,8 +1,12 @@
-package com.backend.ecommerce.service;
+package com.backend.ecommerce.service.implementation;
 
 import com.backend.ecommerce.entity.*;
 import com.backend.ecommerce.exception.OrderException;
 import com.backend.ecommerce.repository.*;
+import com.backend.ecommerce.service.CartService;
+import com.backend.ecommerce.service.OrderItemService;
+import com.backend.ecommerce.service.OrderService;
+import com.backend.ecommerce.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

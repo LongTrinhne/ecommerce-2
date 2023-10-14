@@ -5,6 +5,7 @@ import com.backend.ecommerce.response.AuthenticationResponse;
 import com.backend.ecommerce.request.RegisterRequest;
 import com.backend.ecommerce.entity.Role;
 import com.backend.ecommerce.repository.UserRepository;
+import com.backend.ecommerce.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

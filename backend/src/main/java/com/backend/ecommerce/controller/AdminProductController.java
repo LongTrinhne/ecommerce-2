@@ -33,7 +33,7 @@ public class AdminProductController {
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{productId}/update")
+    @PutMapping("/update/{productId}")
     public ResponseEntity<Product> updateProduct(
             @RequestBody Product product,
             @PathVariable Long productId) throws ProductException {
@@ -42,7 +42,7 @@ public class AdminProductController {
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("{productId}/delete")
+    @DeleteMapping("/delete/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long productId) throws ProductException {
         productService.deleteProduct(productId);
         return new ResponseEntity<>("Deleted Successfully!", HttpStatus.OK);

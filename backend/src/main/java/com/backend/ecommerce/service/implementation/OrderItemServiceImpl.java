@@ -1,7 +1,8 @@
-package com.backend.ecommerce.service;
+package com.backend.ecommerce.service.implementation;
 
 import com.backend.ecommerce.entity.OrderItem;
 import com.backend.ecommerce.repository.OrderItemRepository;
+import com.backend.ecommerce.service.OrderItemService;
 import org.springframework.stereotype.Service;
 
 @Service

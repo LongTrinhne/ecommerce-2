@@ -30,6 +30,6 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> signIn (
             @RequestBody AuthenticationRequest request
     ) {
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+        return ResponseEntity.ok(authenticationService.logIn(request));
     }
 }

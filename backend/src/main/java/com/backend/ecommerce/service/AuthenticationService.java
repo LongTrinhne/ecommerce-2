@@ -8,7 +8,11 @@ import com.backend.ecommerce.repository.UserRepository;
 import com.backend.ecommerce.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.backend.ecommerce.entity.User;
@@ -43,25 +47,38 @@ public class AuthenticationService {
                     .role(Role.USER)
                     .build();
             userRepository.save(user);
-            var jwtToken = jwtService.generateToken(user);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), request.getPassword());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = jwtService.generateToken(authentication);
             return AuthenticationResponse
                     .builder()
-                    .jwtToken(jwtToken)
+                    .jwtToken(token)
+                    .message("Sign Up Successfully!")
                     .build();
         }
         else throw new IllegalArgumentException("Email existed");
     }
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()));
+    public AuthenticationResponse logIn(AuthenticationRequest request) {
 
-        var user = userRepository.findUserByEmail(request.getEmail());
-        var jwtToken = jwtService.generateToken(user);
+        Authentication authentication = authenticate(request.getEmail(), request.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String token = jwtService.generateToken(authentication);
+
         return AuthenticationResponse
                 .builder()
-                .jwtToken(jwtToken)
+                .jwtToken(token)
+                .message("Sign In Successfully")
                 .build();
+    }
+
+    private Authentication authenticate(String email, String password) {
+        UserDetails userDetails = userRepository.findUserByEmail(email);
+        if (userDetails == null)
+            throw new BadCredentialsException("Invalid Email!!!");
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new BadCredentialsException("Invalid Password!!!");
+        }
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }

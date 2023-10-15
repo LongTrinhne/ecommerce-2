@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class Cart {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart", orphanRemoval = true)
     @Column(name = "cart_items")
-    private Set<CartItem> cartItems;
+    public List<CartItem> cartItems;
 
     private Long totalPrice;
     private int totalItem;

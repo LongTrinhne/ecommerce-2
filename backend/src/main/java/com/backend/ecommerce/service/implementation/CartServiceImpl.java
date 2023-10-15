@@ -37,21 +37,23 @@ public class CartServiceImpl implements CartService {
     public String addCartItem(Long userId, AddItemRequest itemRequest) throws ProductException {
 
         Cart cart = cartRepository.findByUserId(userId);
-        Product product = productService.findProductById(itemRequest.getProductId());
-        CartItem cartItem = cartItemService.isCartItemExist(cart, product, userId);
 
-        if (cartItem == null) {
+        Product product = productService.findProductById(itemRequest.getProductId());
+        CartItem existingCartItem = cartItemService.isCartItemExist(cart, product, userId);
+
+        if (existingCartItem == null) {
             CartItem tmp = new CartItem();
             tmp.setProduct(product);
             tmp.setCart(cart);
             tmp.setQuantity(itemRequest.getQuantity());
+            tmp.setUserId(userId);
 
-            Long price = itemRequest.getQuantity() * product.getDiscountedPrice();
-            cartItem.setPrice(price);
+//          Long price = itemRequest.getQuantity() * product.getDiscountedPrice();
+            tmp.setPrice(itemRequest.getQuantity() * product.getDiscountedPrice());
 
-            CartItem createdCartItem = cartItemService.createCartItem(cartItem);
-            cart.getCartItems().add(createdCartItem);
-        }
+            CartItem createdCartItem = cartItemService.createCartItem(tmp);
+            cart.cartItems.add(createdCartItem);
+        } else existingCartItem.setQuantity(existingCartItem.getQuantity() + itemRequest.getQuantity());
         return "Item add to cart.";
     }
 
@@ -73,6 +75,7 @@ public class CartServiceImpl implements CartService {
         cart.setTotalItem(totalItem);
         cart.setDiscount(totalPrice - totalDiscountedPrice);
 
-        return cartRepository.save(cart);
+        cartRepository.save(cart);
+        return cart;
     }
 }

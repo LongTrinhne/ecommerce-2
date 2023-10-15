@@ -26,7 +26,7 @@ public class AdminOrderController {
         return new ResponseEntity<>(orders, HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/{orderId}/confirmed")
+    @PutMapping("/confirmed/{orderId}")
     public ResponseEntity<Order> confirmedOrder(
             @PathVariable Long orderId,
             @RequestHeader("Authorization") String token) throws OrderException {
@@ -36,7 +36,7 @@ public class AdminOrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    @PutMapping("/{orderId}/shipped")
+    @PutMapping("/shipped/{orderId}")
     public ResponseEntity<Order> shippedOrder(
             @PathVariable Long orderId,
             @RequestHeader("Authorization") String token) throws OrderException {
@@ -45,7 +45,7 @@ public class AdminOrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    @PutMapping("/{orderId}/delivered")
+    @PutMapping("/delivered/{orderId}")
     public ResponseEntity<Order> deliveredOrder(
             @PathVariable Long orderId,
             @RequestHeader("Authorization") String token) throws OrderException {
@@ -54,7 +54,7 @@ public class AdminOrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    @PutMapping("/{orderId}/canceled")
+    @PutMapping("/canceled/{orderId}")
     public ResponseEntity<Order> canceledOrder(
             @PathVariable Long orderId,
             @RequestHeader("Authorization") String token) throws OrderException {
@@ -63,7 +63,7 @@ public class AdminOrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete/{orderId}")
     public ResponseEntity<String> deletedOrder(
             @PathVariable Long orderId,
             @RequestHeader("Authorization") String token) throws OrderException  {

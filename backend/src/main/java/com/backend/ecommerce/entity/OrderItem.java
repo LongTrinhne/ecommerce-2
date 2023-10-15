@@ -1,5 +1,6 @@
 package com.backend.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private Order order;
 
     @ManyToOne

@@ -1,5 +1,6 @@
 package com.backend.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,9 +31,11 @@ public class Order {
     private Address shippingAddress;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @JsonIgnore
     private List<OrderItem> orderItems;
 
     private Long totalPrice;

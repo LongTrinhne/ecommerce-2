@@ -45,18 +45,18 @@ public class OrderController {
         User user = userService.findUserProfileByJwt(token);
         Order order = orderService.findOrderById(orderId);
 
+
         return new ResponseEntity<>(order, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Order> createOrder(
+    public ResponseEntity<Order> createdOrder(
             @RequestBody Address shippingAddress,
             @RequestHeader("Authorization") String token) throws UserNotFoundException {
 
         User user = userService.findUserProfileByJwt(token);
         Order order = orderService.createOrder(user, shippingAddress);
 
-        System.out.println("Order: " + order);
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }

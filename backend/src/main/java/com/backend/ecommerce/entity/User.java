@@ -1,5 +1,6 @@
 package com.backend.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -52,9 +53,11 @@ public class User implements UserDetails {
     private List<Address> addresses;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Rating> ratings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Review> reviews;
 
     @Override

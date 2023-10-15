@@ -54,15 +54,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String deleteOrder(Long orderId) throws OrderException {
+    public String deleteOrder(Long orderId) {
         orderRepository.deleteById(orderId);
         return "Order with id: " + orderId + " has been deleted!";
     }
     @Override
-    public Order createOrder(User user, Address shippingAdress) {
+    public Order createOrder(User user, Address shippingAddress) {
 
-        shippingAdress.setUser(user);
-        Address address = addressRepository.save(shippingAdress);
+        shippingAddress.setUser(user);
+        Address address = addressRepository.save(shippingAddress);
 
         user.getAddresses().add(address);
         userRepository.save(user);
@@ -93,9 +93,10 @@ public class OrderServiceImpl implements OrderService {
         createdOrder.setTotalDiscountedPrice(cart.getTotalDiscountedPrice());
         createdOrder.setDiscount(cart.getDiscount());
         createdOrder.setTotalItems(cart.getTotalItem());
-        createdOrder.setShippingAddress(address);
-        createdOrder.setOrderStatus("PENDING");
 
+        createdOrder.setShippingAddress(address);
+
+        createdOrder.setOrderStatus("PENDING");
 
         Order savedOrder = orderRepository.save(createdOrder);
 

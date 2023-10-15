@@ -1,8 +1,11 @@
 spring:
+  main:
+    allow-circular-references: true
   datasource:
     url: jdbc:mysql://localhost:3306/ecommerce_2
     username: springstudent
     password: springstudent
+    driver-class-name:
 
   jpa:
     properties:

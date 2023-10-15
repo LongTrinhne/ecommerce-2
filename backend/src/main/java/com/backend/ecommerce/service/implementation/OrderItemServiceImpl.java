@@ -12,7 +12,6 @@ public class OrderItemServiceImpl implements OrderItemService {
     public OrderItemServiceImpl(OrderItemRepository orderItemRepository) {
         this.orderItemRepository = orderItemRepository;
     }
-
     @Override
     public OrderItem createOrderItem(OrderItem orderItem) {
         return orderItemRepository.save(orderItem);

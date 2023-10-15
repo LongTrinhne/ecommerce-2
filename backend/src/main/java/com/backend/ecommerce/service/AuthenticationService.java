@@ -1,5 +1,6 @@
 package com.backend.ecommerce.service;
 
+import com.backend.ecommerce.entity.Cart;
 import com.backend.ecommerce.request.AuthenticationRequest;
 import com.backend.ecommerce.response.AuthenticationResponse;
 import com.backend.ecommerce.request.RegisterRequest;
@@ -22,17 +23,18 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
+
+    private final CartService cartService;
 
     @Autowired
     public AuthenticationService(UserRepository userRepository,
                                  PasswordEncoder passwordEncoder,
                                  JwtService jwtService,
-                                 AuthenticationManager authenticationManager) {
+                                 CartService cartService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
-        this.authenticationManager = authenticationManager;
+        this.cartService = cartService;
     }
     public AuthenticationResponse register(RegisterRequest request) {
 
@@ -47,6 +49,8 @@ public class AuthenticationService {
                     .role(Role.USER)
                     .build();
             userRepository.save(user);
+            Cart cart = cartService.createCart(user);
+
             Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), request.getPassword());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtService.generateToken(authentication);

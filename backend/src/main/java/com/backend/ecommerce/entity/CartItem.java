@@ -1,5 +1,6 @@
 package com.backend.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class CartItem {
     private Long cartItemId;
 
     @ManyToOne
+    @JsonIgnore
     private Cart cart;
 
     @ManyToOne

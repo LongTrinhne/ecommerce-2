@@ -35,11 +35,11 @@ public class AdminProductController {
 
     @PutMapping("/update/{productId}")
     public ResponseEntity<Product> updateProduct(
-            @RequestBody Product product,
+            @RequestBody Product productRequest,
             @PathVariable Long productId) throws ProductException {
 
-        Product tmpProduct = productService.updateProduct(productId, product);
-        return new ResponseEntity<>(product, HttpStatus.CREATED);
+        Product tmpProduct = productService.updateProduct(productId, productRequest);
+        return new ResponseEntity<>(tmpProduct, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{productId}")

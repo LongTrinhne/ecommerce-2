@@ -32,7 +32,7 @@ public class ProductController {
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/products/id/{productId}")
+    @GetMapping("/id/{productId}")
     public ResponseEntity<Product> findProductById(@PathVariable Long productId) throws ProductException {
         Product product = productService.findProductById(productId);
         return new ResponseEntity<>(product, HttpStatus.ACCEPTED);

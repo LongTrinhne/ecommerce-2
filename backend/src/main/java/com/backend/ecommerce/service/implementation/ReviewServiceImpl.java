@@ -17,12 +17,10 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
     private final ProductService productService;
-    private final ProductRepository productRepository;
 
-    public ReviewServiceImpl(ReviewRepository reviewRepository, ProductService productService, ProductRepository productRepository) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, ProductService productService) {
         this.reviewRepository = reviewRepository;
         this.productService = productService;
-        this.productRepository = productRepository;
     }
 
     @Override

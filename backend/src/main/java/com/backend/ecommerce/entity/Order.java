@@ -30,7 +30,7 @@ public class Order {
     @OneToOne
     private Address shippingAddress;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private User user;
 

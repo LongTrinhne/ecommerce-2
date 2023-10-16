@@ -1,5 +1,6 @@
 package com.backend.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,9 +43,11 @@ public class Product {
     private String imageUrl;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product", orphanRemoval = true)
+    @JsonIgnore
     private List<Rating> ratings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
+    @JsonIgnore
     private List<Review> reviews;
 
     @Column(name = "created_at")

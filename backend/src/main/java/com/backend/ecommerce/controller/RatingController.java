@@ -25,7 +25,6 @@ public class RatingController {
         this.userService = userService;
         this.ratingService = ratingService;
     }
-
     @GetMapping("/product/{productId}")
     public ResponseEntity<List<Rating>> getProductRatings(
             @PathVariable Long productId,
@@ -36,7 +35,7 @@ public class RatingController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Rating> createRating(
+    public ResponseEntity<Rating> createdRating(
             @RequestBody RatingRequest ratingRequest,
             @RequestHeader("Authorization") String token) throws UserNotFoundException, ProductException {
         User user = userService.findUserProfileByJwt(token);
